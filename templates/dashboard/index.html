@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/index.css">
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.11.3.js" ></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/index.js"></script>
+</head>
+<body>
+	<div id="framework">
+		<div id="divTitle">
+			<p >
+				湾头中心小学<br/>
+				2002届毕业生同学会
+			</p>
+		</div>
+		<div id="divAward">
+			<div id="divAwardTitle">
+				--
+			</div>
+			<br>
+			<div id="divAwardTrophy">
+
+			</div>
+			<div id="divAward123">
+
+			</div>
+		</div>
+		<div id="divOption">
+			<button id="btnTrophy" class="btn btn-success btn-lg" onclick="ChooseAward(4)">纪念奖</button>
+            <button id="btnTrophyLast" class="btn btn-success btn-lg" onclick="ChooseAward(5)">纪念奖</button>
+			<button id="btnThird" class="btn btn-success btn-lg" onclick="ChooseAward(3)">三等奖</button>
+			<button id="btnSecond" class="btn btn-success btn-lg" onclick="ChooseAward(2)">二等奖</button>
+			<button id="btnChampion" class="btn btn-success btn-lg" onclick="ChooseAward(1)">一等奖</button>
+            <button id="btnStartAward" class="btn btn-danger btn-lg" onclick="GetAwards()">开 始</button>
+            <button id="btnStopAward" class="btn btn-danger btn-lg" onclick="StopAward()">开 奖</button>
+{#            <button id="btnAwardLevel" class="btn btn-danger btn-lg" >0</button>#}
+{#            <button id="btnInitDB" class="btn btn-danger btn-lg" onclick="InitDB()">InitDB</button>#}
+		</div>
+	</div>
+</body>
+</html>
