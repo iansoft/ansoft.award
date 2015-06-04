@@ -40,9 +40,6 @@ def get_awards(request):
         award_students.append(student_pool[student_pool_index])
 
     #print award_students
-    # print ""
-    # print "====the result======"
-    # print award_students
     award_dict = {"students": award_students}
     return JsonResponse(award_dict)
 
@@ -54,12 +51,13 @@ def get_award_source():
     return students
 
 def record_selected_students(request):
-    if request.method == 'GET':
-        print ""
-        print "====POST======"
-        req = json.loads(request.raw_get_data)
-        print req
+    selectedIDs = json.loads(request.body)["student_ids"]
 
+    cursor = connection.cursor()
+    for ID in selectedIDs:
+        print ID
+        sql = ("UPDATE students SET status = 1 WHERE id=%s" % ( ID ))
+        cursor.execute(sql)
     award_dict = {"students": "heheh"}
     return JsonResponse(award_dict)
 

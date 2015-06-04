@@ -104,7 +104,7 @@ function StopAward(){
     console.log(json_str);
 
      $.ajax({
-            type: "get",
+            type: "post",
             url: "/api/record_selected_students/",
             data: json_str,
             dataType: "json",

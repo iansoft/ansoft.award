@@ -4,4 +4,5 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     url(r"^$", include('dashboard.urls')),
     url(r"^api/", include('dashboard.urls')),
+    url(r"^lab/", include('lab.urls')),
 )
