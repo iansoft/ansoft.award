@@ -20,8 +20,9 @@ def get_awards(request):
 
     #get the students that never selected
     student_pool = get_award_source()
-    #get the students count
-    student_pool_count = len(student_pool)
+
+    if(len(student_pool)==0):
+        return None
 
     if level == 1: #award 1
         award_count = 1
@@ -31,15 +32,22 @@ def get_awards(request):
         award_count = 5
     elif level == 4: #award 4
         award_count = 20
+    elif level == 5: #award 5
+        #give all the people that never get the award
+        award_dict = {"students": student_pool}
+        return JsonResponse(award_dict)
     else: #nothing
         pass
 
     for i in range(0,award_count):
-        student_pool_index = random.randint(0,student_pool_count)
-        #add the award students
-        award_students.append(student_pool[student_pool_index])
+        student_index = random.randint(0,len(student_pool))
+        award_man = student_pool[student_index]
+        award_students.append(award_man)
+        student_pool.remove(award_man)
 
-    #print award_students
+    #order by the first keyword: id
+    award_students.sort(key=lambda x: x[0])
+    print award_students
     award_dict = {"students": award_students}
     return JsonResponse(award_dict)
 
@@ -58,12 +66,21 @@ def record_selected_students(request):
         print ID
         sql = ("UPDATE students SET status = 1 WHERE id=%s" % ( ID ))
         cursor.execute(sql)
-    award_dict = {"students": "heheh"}
+
+    cursor.execute("SELECT * FROM students WHERE status = 1")
+    students = cursor.fetchall()
+    award_dict = {"UnselectedCount": len(students)}
     return JsonResponse(award_dict)
 
 
+def reset(request):
+    cursor = connection.cursor()
+    cursor.execute("UPDATE students SET status = 0")
+    return JsonResponse({"status": "OK"})
+
+
 def init_db(request):
-    cursor = connection.cursor();
+    cursor = connection.cursor()
     #first of all: delete all the students
     cursor.execute("DELETE FROM students")
 
@@ -78,5 +95,5 @@ def init_db(request):
     row = cursor.fetchall()
     print row
     print type(row)
-    vsm_status_dict = {"students":row}
+    vsm_status_dict = {"students": row}
     return JsonResponse(vsm_status_dict)
